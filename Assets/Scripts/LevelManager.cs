@@ -7,6 +7,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject tile;
 
+    public float TileSize
+    {
+        get { return tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,15 +26,20 @@ public class LevelManager : MonoBehaviour
 
     private void CreateLevel()
     {
-        float tileSize = tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
 
+        Vector3 worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
         for (int y = 0; y < 5; y++)
         {
             for (int x = 0; x < 5; x++)
             {
-                GameObject newTile = Instantiate(tile);
-                newTile.transform.position = new Vector3(tileSize * x, tileSize * y);
+                PlaceTile(x, y, worldStart);
             }
         }
+    }
+
+    private void PlaceTile(int x, int y, Vector3 worldStart)
+    {
+        GameObject newTile = Instantiate(tile);
+        newTile.transform.position = new Vector3(worldStart.x + (TileSize * x), worldStart.y - (TileSize * y), 0);
     }
 }
