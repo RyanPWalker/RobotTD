@@ -22,7 +22,6 @@ public class LevelManager : MonoBehaviour
     private void CreateLevel()
     {
         float tileSize = tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-
         for (int y = 0; y < 5; y++)
         {
             for (int x = 0; x < 5; x++)
