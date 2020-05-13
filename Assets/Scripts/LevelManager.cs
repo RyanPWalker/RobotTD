@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private CameraMovement cameraMovement;
 
+    public Dictionary<Point, TileScript> Tiles { get; set; }
+
     public float TileSize
     {
         get { return tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
@@ -29,6 +31,7 @@ public class LevelManager : MonoBehaviour
 
     private void CreateLevel()
     {
+        Tiles = new Dictionary<Point, TileScript>();
         string[] mapData = readLevelText();
         int mapX = mapData[0].ToCharArray().Length;
         int mapY = mapData.Length;
@@ -40,21 +43,23 @@ public class LevelManager : MonoBehaviour
             char[] newTiles = mapData[y].ToCharArray();
             for (int x = 0; x < mapX; x++)
             {
-                maxTile = PlaceTile(newTiles[x].ToString(), x, y, worldStart);
+                PlaceTile(newTiles[x].ToString(), x, y, worldStart);
             }
         }
+
+        maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
 
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
     }
 
-    private Vector3 PlaceTile(string tileType, int x, int y, Vector3 worldStart)
+    private void PlaceTile(string tileType, int x, int y, Vector3 worldStart)
     {
         int tileIndex = int.Parse(tileType);
         TileScript newTile = Instantiate(tilePrefabs[tileIndex]).GetComponent<TileScript>();
 
         newTile.Setup(new Point(x, y), new Vector3(worldStart.x + (TileSize * x), worldStart.y - (TileSize * y), 0));
 
-        return newTile.transform.position;
+        Tiles.Add(new Point(x, y), newTile);
     }
 
     private string[] readLevelText()
