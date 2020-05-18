@@ -247,4 +247,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ff6cfbbd0ac44a2b076d7a22daa46a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 1557689562421800366, guid: 7672e3d149b7c47ccb1d08b6b21e4d17, type: 3}
+  tilePrefabs:
+  - {fileID: 1557689562421800366, guid: 7672e3d149b7c47ccb1d08b6b21e4d17, type: 3}
+  - {fileID: 4265084360364555556, guid: 781621248d5bf4acb940c354cfd15444, type: 3}
+  - {fileID: 300020618762296599, guid: 757b04b18641b4bc7b06a12b9f95a20b, type: 3}
+  - {fileID: 4026916988084541004, guid: d8ce9e43c7aea48cd8dbcc62c8e2fee9, type: 3}
+  - {fileID: 3973553765320726173, guid: 521048543451844ac84f4921061566fd, type: 3}
+  - {fileID: 4930333960814780395, guid: 76019e345dfc2448f90686271df6db42, type: 3}
