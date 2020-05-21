@@ -216,8 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb00f1c712a94b958f6645199085567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 3728288615029146025, guid: 55f287e1f52e943298b79ab0513ff010,
-    type: 3}
 --- !u!4 &55975320
 Transform:
   m_ObjectHideFlags: 0
@@ -244,6 +242,7 @@ GameObject:
   - component: {fileID: 126846355}
   - component: {fileID: 126846354}
   - component: {fileID: 126846353}
+  - component: {fileID: 126846356}
   m_Layer: 5
   m_Name: PoisonBtn
   m_TagString: Untagged
@@ -312,7 +311,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 126846354}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 55975319}
+        m_MethodName: PickTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 126846356}
+          m_ObjectArgumentAssemblyTypeName: TowerBtn, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &126846354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +360,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126846351}
   m_CullTransparentMesh: 0
+--- !u!114 &126846356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126846351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d40e5071bd84f4bb20f870d8301085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 4218798400456729443, guid: b25652c693dae4d57bd34e34d83d3116,
+    type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +483,7 @@ GameObject:
   - component: {fileID: 531290114}
   - component: {fileID: 531290113}
   - component: {fileID: 531290112}
+  - component: {fileID: 531290115}
   m_Layer: 5
   m_Name: IceBtn
   m_TagString: Untagged
@@ -527,7 +552,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 531290113}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 55975319}
+        m_MethodName: PickTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 531290115}
+          m_ObjectArgumentAssemblyTypeName: TowerBtn, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &531290113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,6 +601,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 531290110}
   m_CullTransparentMesh: 0
+--- !u!114 &531290115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531290110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d40e5071bd84f4bb20f870d8301085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 8990581661730917617, guid: 3001f2446363240c0bfd178f097daab7,
+    type: 3}
 --- !u!1 &1309945273
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +627,7 @@ GameObject:
   - component: {fileID: 1309945277}
   - component: {fileID: 1309945276}
   - component: {fileID: 1309945275}
+  - component: {fileID: 1309945278}
   m_Layer: 5
   m_Name: StormBtn
   m_TagString: Untagged
@@ -645,7 +696,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1309945276}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 55975319}
+        m_MethodName: PickTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1309945278}
+          m_ObjectArgumentAssemblyTypeName: TowerBtn, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1309945276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,7 +727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 274f4ac826e3fce439f4381183da8769, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b80f4827671b494f8626a5ef0acb462, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -683,6 +745,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309945273}
   m_CullTransparentMesh: 0
+--- !u!114 &1309945278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309945273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d40e5071bd84f4bb20f870d8301085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 495972961987393579, guid: b2d94afbaa5f84f1e9671d549a92d2a9,
+    type: 3}
 --- !u!1 &1314277643
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,8 +926,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -40.9, y: -232.01}
-  m_SizeDelta: {x: 81.754425, y: 464.12256}
+  m_AnchoredPosition: {x: -40.899902, y: -232.01}
+  m_SizeDelta: {x: 81.754425, y: 464.1289}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1509425786
 CanvasRenderer:
@@ -897,6 +973,7 @@ GameObject:
   - component: {fileID: 1934373657}
   - component: {fileID: 1934373656}
   - component: {fileID: 1934373655}
+  - component: {fileID: 1934373658}
   m_Layer: 5
   m_Name: FireBtn
   m_TagString: Untagged
@@ -965,7 +1042,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1934373656}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 55975319}
+        m_MethodName: PickTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1934373658}
+          m_ObjectArgumentAssemblyTypeName: TowerBtn, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1934373656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1003,6 +1091,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934373653}
   m_CullTransparentMesh: 0
+--- !u!114 &1934373658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934373653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d40e5071bd84f4bb20f870d8301085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 3728288615029146025, guid: 55f287e1f52e943298b79ab0513ff010,
+    type: 3}
 --- !u!1 &2092002586
 GameObject:
   m_ObjectHideFlags: 0
