@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class TowerBtn : MonoBehaviour {
@@ -9,7 +10,22 @@ public class TowerBtn : MonoBehaviour {
     [SerializeField]
     private Sprite sprite;
 
-    public Sprite Sprite {
+    [SerializeField]
+    private int price;
+
+    [SerializeField]
+    private Text priceText;
+
+    public int Price
+    {
+        get
+        {
+            return price;
+        }
+    }
+
+    public Sprite Sprite
+    {
         get
         {
             return sprite;
@@ -24,4 +40,8 @@ public class TowerBtn : MonoBehaviour {
         }
     }
 
+    private void Start()
+    {
+        priceText.text = "$" + Price;
+    }
 }
