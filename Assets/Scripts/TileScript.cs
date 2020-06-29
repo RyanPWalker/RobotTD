@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class TileScript : MonoBehaviour
@@ -15,17 +13,19 @@ public class TileScript : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    public bool Walkable { get; set; }
+
     public Vector2 WorldPosition
     {
         get
         {
-            return new Vector2(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y - GetComponent<SpriteRenderer>().bounds.size.y / 2);
+            return new Vector2(transform.position.x + (GetComponent<SpriteRenderer>().bounds.size.x / 2), transform.position.y - (GetComponent<SpriteRenderer>().bounds.size.y / 2));
         }
     }
-    // Start is called before the first frame update
+
     void Start()
     {
-        this.spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -36,6 +36,7 @@ public class TileScript : MonoBehaviour
 
     public void Setup(Point gridPos, Vector3 worldPos, Transform parent)
     {
+        Walkable = true;
         IsEmpty = true;
         this.GridPosition = gridPos;
         transform.position = worldPos;
@@ -76,6 +77,7 @@ public class TileScript : MonoBehaviour
         IsEmpty = false;
         ColorTile(Color.white);
         GameManager.Instance.BuyTower();
+        Walkable = false;
     }
 
     private void ColorTile(Color newColor)
