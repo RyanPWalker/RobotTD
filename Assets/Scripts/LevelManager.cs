@@ -11,6 +11,14 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private CameraMovement cameraMovement;
 
+    private Point blueSpawn, redSpawn;
+
+    [SerializeField]
+    private GameObject bluePortalPrefab;
+    
+    [SerializeField]
+    private GameObject redPortalPrefab;
+
     public Dictionary<Point, TileScript> Tiles { get; set; }
 
     public float TileSize
@@ -30,7 +38,7 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
 
-    } 
+    }
 
     private void CreateLevel()
     {
@@ -52,6 +60,8 @@ public class LevelManager : MonoBehaviour
         maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
 
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
+        
+        SpawnPortals();
     }
 
     public void PlaceTile(string tileType, int x, int y, Vector3 worldStart)
@@ -63,14 +73,28 @@ public class LevelManager : MonoBehaviour
         //uses  new tile
 
         newTile.Setup(new Point(x, y), new Vector3(worldStart.x + (TileSize * x), worldStart.y - (TileSize * y)));
+        
         Tiles.Add(new Point(x, y), newTile);
     }
 
     private string[] ReadLevelText()
     {
         TextAsset bindData = Resources.Load("Level") as TextAsset;
+        
         string data = bindData.text.Replace(Environment.NewLine, string.Empty);
+        
         return data.Split('-');
+    }
+
+    private void SpawnPortals()
+    {
+        blueSpawn = new Point(0, 0);
+        
+        Instantiate(bluePortalPrefab, Tiles[blueSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+
+        redSpawn = new Point(11, 6);
+        
+        Instantiate(redPortalPrefab, Tiles[redSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
     }
 
 }

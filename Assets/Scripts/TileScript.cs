@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class TileScript : MonoBehaviour
 {
-    public Point GridPosition { get; set; }
+    public Point GridPosition { get; private set; }
     // Start is called before the first frame update
+    public Vector2 WorldPosition
+    {
+        get
+        {
+            return new Vector2(transform.position.x + (GetComponent<SpriteRenderer>().bounds.size.x/2), transform.position.y - (GetComponent<SpriteRenderer>().bounds.size.y/2));
+        }
+    }
     void Start()
     {
 
