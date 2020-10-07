@@ -77,6 +77,8 @@ public class GameManager : Singleton<GameManager>
         int monsterIndex = Random.Range(0, 4);
         string type = string.Empty;
 
+        LevelManager.Instance.GeneratePath();
+
         switch (monsterIndex)
         {
             case 0:

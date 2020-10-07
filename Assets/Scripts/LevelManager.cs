@@ -26,6 +26,21 @@ public class LevelManager : Singleton<LevelManager>
 
     private Point mapSize;
 
+    private Stack<Node> path;
+
+    public Stack<Node> Path
+    {
+        get
+        {
+            if (path == null)
+            {
+                GeneratePath();
+            }
+
+            return new Stack<Node>(new Stack<Node>(path));
+        }
+    }
+
     public Dictionary<Point, TileScript> Tiles { get; set; }
 
     public float TileSize
@@ -103,5 +118,10 @@ public class LevelManager : Singleton<LevelManager>
     public bool InBounds(Point position)
     {
         return position.X >= 0 && position.Y >= 0 && position.X < mapSize.X && position.Y < mapSize.Y;
+    }
+
+    public void GeneratePath()
+    {
+        path = AStar.GetPath(blueSpawn, redSpawn);
     }
 }
