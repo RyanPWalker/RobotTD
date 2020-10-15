@@ -9,6 +9,8 @@ public class Monster : MonoBehaviour
 
     private Stack<Node> path;
 
+    private Animator myAnimator;
+
     public Point GridPosition { get; set; }
 
     private Vector3 destination;
@@ -23,6 +25,7 @@ public class Monster : MonoBehaviour
     public void Spawn()
     {
         transform.position = LevelManager.Instance.BluePortal.transform.position;
+        myAnimator = GetComponent<Animator>();
         StartCoroutine(Scale(new Vector3(0.1f, 0.1f), new Vector3(1, 1)));
         SetPath(LevelManager.Instance.Path);
     }
@@ -30,7 +33,7 @@ public class Monster : MonoBehaviour
     public IEnumerator Scale(Vector3 from, Vector3 to)
     {
         IsActive = false;
-        
+
         float progress = 0;
 
         while (progress <= 1)
@@ -54,6 +57,7 @@ public class Monster : MonoBehaviour
             {
                 if (path != null && path.Count > 0)
                 {
+                    Animate(GridPosition, path.Peek().GridPosition);
                     GridPosition = path.Peek().GridPosition;
                     destination = path.Pop().WorldPosition;
                 }
@@ -66,8 +70,36 @@ public class Monster : MonoBehaviour
         if (newPath != null)
         {
             this.path = newPath;
+            Animate(GridPosition, path.Peek().GridPosition);
             GridPosition = path.Peek().GridPosition;
             destination = path.Pop().WorldPosition;
+        }
+    }
+
+    private void Animate(Point currentPos, Point newPos)
+    {
+        if (currentPos.Y > newPos.Y)
+        {
+            // Down
+            myAnimator.SetInteger("Horizontal", 0);
+            myAnimator.SetInteger("Vertical", 1);
+        }
+        else if (currentPos.Y < newPos.Y)
+        {
+            // Up
+            myAnimator.SetInteger("Horizontal", 0);
+            myAnimator.SetInteger("Vertical", -1);
+        }
+        else if (currentPos.X > newPos.X)
+        {
+            // Left
+            myAnimator.SetInteger("Horizontal", -1);
+            myAnimator.SetInteger("Vertical", 0);
+        }
+        else if (currentPos.X < newPos.X) {
+            // Right
+            myAnimator.SetInteger("Horizontal", 1);
+            myAnimator.SetInteger("Vertical", 0);
         }
     }
 }
