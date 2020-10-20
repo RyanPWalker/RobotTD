@@ -48,6 +48,14 @@ public class LevelManager : Singleton<LevelManager>
         get { return tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
     }
 
+    public Point BlueSpawn
+    {
+        get
+        {
+            return blueSpawn;
+        }
+    }
+
     void Start()
     {
         CreateLevel();

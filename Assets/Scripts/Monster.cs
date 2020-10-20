@@ -46,7 +46,7 @@ public class Monster : MonoBehaviour
 
         if (remove)
         {
-            Destroy(gameObject);
+            Release(gameObject);
         }
     }
 
@@ -113,5 +113,12 @@ public class Monster : MonoBehaviour
             StartCoroutine(Scale(new Vector3(1,1), new Vector3(0.1f, 0.1f), true));
             other.GetComponent<Portal>().Open();
         }
+    }
+
+    private void Release(GameObject gameObject)
+    {
+        IsActive = false;
+        GridPosition = LevelManager.Instance.BlueSpawn;
+        GameManager.Instance.Pool.ReleaseObject(gameObject);
     }
 }
