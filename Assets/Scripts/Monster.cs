@@ -120,5 +120,6 @@ public class Monster : MonoBehaviour
         IsActive = false;
         GridPosition = LevelManager.Instance.BlueSpawn;
         GameManager.Instance.Pool.ReleaseObject(gameObject);
+        GameManager.Instance.RemoveMonster(this);
     }
 }
