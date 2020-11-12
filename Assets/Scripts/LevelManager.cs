@@ -7,13 +7,39 @@ public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField]
     private GameObject[] tilePrefabs;
+
     [SerializeField]
     private CameraMovement cameraMovement;
+
+    [SerializeField]
+    private Transform map;
 
     private Point blueSpawn, redSpawn;
 
     [SerializeField]
-    private GameObject bluePortalPrefab, redPortalPrefab;
+    private GameObject bluePortalPrefab;
+
+    [SerializeField]
+    private GameObject redPortalPrefab;
+
+    public Portal BluePortal { get; set; }
+
+    private Point mapSize;
+
+    private Stack<Node> path;
+
+    public Stack<Node> Path
+    {
+        get
+        {
+            if (path == null)
+            {
+                GeneratePath();
+            }
+
+            return new Stack<Node>(new Stack<Node>(path));
+        }
+    }
 
     public Dictionary<Point, TileScript> Tiles { get; set; }
 
@@ -22,13 +48,19 @@ public class LevelManager : Singleton<LevelManager>
         get { return tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
     }
 
-    // Start is called before the first frame update
+    public Point BlueSpawn
+    {
+        get
+        {
+            return blueSpawn;
+        }
+    }
+
     void Start()
     {
         CreateLevel();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -37,7 +69,11 @@ public class LevelManager : Singleton<LevelManager>
     private void CreateLevel()
     {
         Tiles = new Dictionary<Point, TileScript>();
-        string[] mapData = readLevelText();
+
+        string[] mapData = ReadLevelText();
+
+        mapSize = new Point(mapData[0].ToCharArray().Length, mapData.Length);
+
         int mapX = mapData[0].ToCharArray().Length;
         int mapY = mapData.Length;
         Vector3 maxTile = Vector3.zero;
@@ -46,6 +82,7 @@ public class LevelManager : Singleton<LevelManager>
         for (int y = 0; y < mapY; y++)
         {
             char[] newTiles = mapData[y].ToCharArray();
+
             for (int x = 0; x < mapX; x++)
             {
                 PlaceTile(newTiles[x].ToString(), x, y, worldStart);
@@ -64,14 +101,13 @@ public class LevelManager : Singleton<LevelManager>
         int tileIndex = int.Parse(tileType);
         TileScript newTile = Instantiate(tilePrefabs[tileIndex]).GetComponent<TileScript>();
 
-        newTile.Setup(new Point(x, y), new Vector3(worldStart.x + (TileSize * x), worldStart.y - (TileSize * y), 0));
+        newTile.Setup(new Point(x, y), new Vector3(worldStart.x + (TileSize * x), worldStart.y - (TileSize * y), 0),map);
     }
 
-    private string[] readLevelText()
+    private string[] ReadLevelText()
     {
-        TextAsset bindData = Resources.Load("Level") as TextAsset;
-
-        string data = bindData.text.Replace(Environment.NewLine, string.Empty);
+        TextAsset bindata = Resources.Load("Level") as TextAsset;
+        string data = bindata.text.Replace(Environment.NewLine, string.Empty);
 
         return data.Split('-');
     }
@@ -79,11 +115,21 @@ public class LevelManager : Singleton<LevelManager>
     private void SpawnPortals()
     {
         blueSpawn = new Point(0, 0);
-
-        Instantiate(bluePortalPrefab, Tiles[blueSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+        GameObject tmp = (GameObject)Instantiate(bluePortalPrefab, Tiles[blueSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+        BluePortal = tmp.GetComponent<Portal>();
+        BluePortal.name = "BluePortal";
 
         redSpawn = new Point(11, 6);
-
         Instantiate(redPortalPrefab, Tiles[redSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+    }
+
+    public bool InBounds(Point position)
+    {
+        return position.X >= 0 && position.Y >= 0 && position.X < mapSize.X && position.Y < mapSize.Y;
+    }
+
+    public void GeneratePath()
+    {
+        path = AStar.GetPath(blueSpawn, redSpawn);
     }
 }
