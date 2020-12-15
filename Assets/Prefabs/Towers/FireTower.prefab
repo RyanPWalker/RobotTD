@@ -109,6 +109,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3728288615029146026}
     m_Modifications:
+    - target: {fileID: -4657204059744954708, guid: ed55456b7760c4905be132e6c5de742c,
+        type: 3}
+      propertyPath: projectileType
+      value: FireProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: -4657204059744954708, guid: ed55456b7760c4905be132e6c5de742c,
+        type: 3}
+      propertyPath: attackCooldown
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1786648922958343431, guid: ed55456b7760c4905be132e6c5de742c,
         type: 3}
       propertyPath: m_LocalPosition.x
