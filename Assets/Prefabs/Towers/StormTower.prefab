@@ -213,3 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4270cfb9aacd34659a7b565e10788042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileType: StormProjectile
+  projectileSpeed: 3
+  attackCooldown: 3

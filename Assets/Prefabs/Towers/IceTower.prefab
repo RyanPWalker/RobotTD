@@ -109,6 +109,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8990581661730917620}
     m_Modifications:
+    - target: {fileID: -4657204059744954708, guid: ed55456b7760c4905be132e6c5de742c,
+        type: 3}
+      propertyPath: projectileType
+      value: IceProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: -4657204059744954708, guid: ed55456b7760c4905be132e6c5de742c,
+        type: 3}
+      propertyPath: projectileSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 473776171674933057, guid: ed55456b7760c4905be132e6c5de742c,
         type: 3}
       propertyPath: m_LocalPosition.x
