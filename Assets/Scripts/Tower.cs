@@ -15,6 +15,8 @@ public class Tower : MonoBehaviour
         get { return projectileSpeed; }
     }
 
+    private Animator myAnimator;
+
     private SpriteRenderer mySpriteRenderer;
 
     private Monster target;
@@ -34,8 +36,9 @@ public class Tower : MonoBehaviour
     private float attackCooldown;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        myAnimator = transform.parent.GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -74,6 +77,7 @@ public class Tower : MonoBehaviour
             if (canAttack)
             {
                 Shoot();
+                myAnimator.SetTrigger("Attack");
                 canAttack = false;
             }
         }
