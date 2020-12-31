@@ -14,6 +14,8 @@ public class GameManager : Singleton<GameManager>
 
     private int lives = 10;
 
+    private int health = 15;
+
     private bool gameOver = false;
 
     [SerializeField]
@@ -119,7 +121,7 @@ public class GameManager : Singleton<GameManager>
         {
             selectedTower.Select();
         }
-        
+
         selectedTower = tower;
         selectedTower.Select();
     }
@@ -181,7 +183,13 @@ public class GameManager : Singleton<GameManager>
 
             // Requests the monster from the pool
             Monster monster = Pool.GetObject(type).GetComponent<Monster>();
-            monster.Spawn();
+            monster.Spawn(health);
+
+            if (wave % 3 == 0)
+            {
+                health += 5;
+            }
+
             activeMonsters.Add(monster);
 
             yield return new WaitForSeconds(2.5f);
