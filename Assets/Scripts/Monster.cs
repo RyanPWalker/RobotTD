@@ -33,6 +33,7 @@ public class Monster : MonoBehaviour
     public void Spawn(int health)
     {
         transform.position = LevelManager.Instance.BluePortal.transform.position;
+        this.health.Bar.Reset();
         this.health.MaxVal = health;
         this.health.CurrentValue = this.health.MaxVal;
         myAnimator = GetComponent<Animator>();
@@ -56,7 +57,7 @@ public class Monster : MonoBehaviour
 
         if (remove)
         {
-            Release(gameObject);
+            Release();
         }
     }
 
@@ -126,12 +127,12 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private void Release(GameObject gameObject)
+    public void Release()
     {
         IsActive = false;
         GridPosition = LevelManager.Instance.BlueSpawn;
-        GameManager.Instance.Pool.ReleaseObject(gameObject);
         GameManager.Instance.RemoveMonster(this);
+        GameManager.Instance.Pool.ReleaseObject(gameObject);
     }
 
     public void TakeDamage(int damage)
@@ -139,6 +140,14 @@ public class Monster : MonoBehaviour
         if (IsActive)
         {
             health.CurrentValue -= damage;
+
+            if (health.CurrentValue <= 0)
+            {
+                GameManager.Instance.Currency += 2;
+                myAnimator.SetTrigger("Die");
+                IsActive = false;
+                GetComponent<SpriteRenderer>().sortingOrder--;
+            }
         }
     }
 }

@@ -63,6 +63,14 @@ class Stat
         }
     }
 
+    public BarScript Bar
+    {
+        get
+        {
+            return bar;
+        }
+    }
+
     /// <summary>
     /// Initializes the stat
     /// This function needs to be called in awake
@@ -74,4 +82,3 @@ class Stat
         this.CurrentValue = currentVal;
     }
 }
-

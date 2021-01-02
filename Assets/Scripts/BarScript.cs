@@ -97,9 +97,13 @@ public class BarScript : MonoBehaviour
                 //Lerp the color from full to low
                 content.color = Color.Lerp(lowColor, fullColor, fillAmount);
             }
-
         }
+    }
 
+    public void Reset()
+    {
+        Value = MaxValue;
+        content.fillAmount = 1;
     }
 
     /// <summary>
