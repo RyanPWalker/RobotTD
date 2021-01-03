@@ -5,7 +5,7 @@ public class TileScript : MonoBehaviour
 {
     public Point GridPosition { get; private set; }
 
-    public bool IsEmpty { get; private set; }
+    public bool IsEmpty { get; set; }
 
     private Tower myTower;
 
@@ -69,6 +69,10 @@ public class TileScript : MonoBehaviour
             {
                 GameManager.Instance.SelectTower(myTower);
             }
+            else
+            {
+                GameManager.Instance.DeselectTower();
+            }
         }
     }
 
@@ -86,6 +90,7 @@ public class TileScript : MonoBehaviour
         this.myTower = tower.transform.GetChild(0).GetComponent<Tower>();
         IsEmpty = false;
         ColorTile(Color.white);
+        myTower.Price = GameManager.Instance.ClickedBtn.Price;
         GameManager.Instance.BuyTower();
         Walkable = false;
     }

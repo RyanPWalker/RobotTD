@@ -42,6 +42,8 @@ public class Tower : MonoBehaviour
         }
     }
 
+    public int Price {get; set; }
+
     private Queue<Monster> monsters = new Queue<Monster>();
 
     private bool canAttack = true;
