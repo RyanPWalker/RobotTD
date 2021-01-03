@@ -97,6 +97,15 @@ public class Tower : MonoBehaviour
                 canAttack = false;
             }
         }
+        else if (monsters.Count > 0)
+        {
+            target = monsters.Dequeue();
+        }
+
+        if (target != null && !target.Alive)
+        {
+            target = null;
+        }
     }
 
     private void Shoot()
