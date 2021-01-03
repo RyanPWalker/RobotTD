@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,6 +12,18 @@ public class GameManager : Singleton<GameManager>
 
     private int wave = 0;
 
+    private int lives = 10;
+
+    private int health = 15;
+
+    private bool gameOver = false;
+
+    [SerializeField]
+    private GameObject gameOverMenu;
+
+    [SerializeField]
+    private Text livesTxt;
+
     [SerializeField]
     private Text waveTxt;
 
@@ -19,6 +32,8 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField]
     private GameObject waveBtn;
+
+    private Tower selectedTower;
 
     private List<Monster> activeMonsters = new List<Monster>();
 
@@ -45,6 +60,27 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public int Lives
+    {
+        get
+        {
+            return lives;
+        }
+
+        set
+        {
+            this.lives = value;
+
+            if (lives <= 0)
+            {
+                this.lives = 0;
+                GameOver();
+            }
+
+            livesTxt.text = lives.ToString();
+        }
+    }
+
     private void Awake()
     {
         Pool = GetComponent<ObjectPool>();;
@@ -52,6 +88,7 @@ public class GameManager : Singleton<GameManager>
 
     // Use this for initialization
     void Start () {
+        Lives = 10;
         Currency = 100;
 	}
 
@@ -76,6 +113,27 @@ public class GameManager : Singleton<GameManager>
             Currency -= ClickedBtn.Price;
             Hover.Instance.Deactivate();
         }
+    }
+
+    public void SelectTower(Tower tower)
+    {
+        if (selectedTower != null)
+        {
+            selectedTower.Select();
+        }
+
+        selectedTower = tower;
+        selectedTower.Select();
+    }
+
+    public void DeselectTower()
+    {
+        if (selectedTower != null)
+        {
+            selectedTower.Select();
+        }
+
+        selectedTower = null;
     }
 
     private void HandleEscape()
@@ -125,7 +183,13 @@ public class GameManager : Singleton<GameManager>
 
             // Requests the monster from the pool
             Monster monster = Pool.GetObject(type).GetComponent<Monster>();
-            monster.Spawn();
+            monster.Spawn(health);
+
+            if (wave % 3 == 0)
+            {
+                health += 5;
+            }
+
             activeMonsters.Add(monster);
 
             yield return new WaitForSeconds(2.5f);
@@ -136,9 +200,30 @@ public class GameManager : Singleton<GameManager>
     {
         activeMonsters.Remove(monster);
 
-        if (!WaveActive)
+        if (!WaveActive && !gameOver)
         {
             waveBtn.SetActive(true);
         }
+    }
+
+    public void GameOver()
+    {
+        if (!gameOver)
+        {
+            gameOver = true;
+            gameOverMenu.SetActive(true);
+        }
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

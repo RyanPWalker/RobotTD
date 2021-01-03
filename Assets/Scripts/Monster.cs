@@ -9,7 +9,17 @@ public class Monster : MonoBehaviour
 
     private Stack<Node> path;
 
+    private SpriteRenderer mySpriteRenderer;
+
     private Animator myAnimator;
+
+    [SerializeField]
+    private Stat health;
+
+    public bool Alive
+    {
+        get { return health.CurrentValue > 0; }
+    }
 
     public Point GridPosition { get; set; }
 
@@ -17,14 +27,23 @@ public class Monster : MonoBehaviour
 
     public bool IsActive { get; set; }
 
+    private void Awake()
+    {
+        health.Initialize();
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void Update()
     {
         Move();
     }
 
-    public void Spawn()
+    public void Spawn(int health)
     {
         transform.position = LevelManager.Instance.BluePortal.transform.position;
+        this.health.Bar.Reset();
+        this.health.MaxVal = health;
+        this.health.CurrentValue = this.health.MaxVal;
         myAnimator = GetComponent<Animator>();
         StartCoroutine(Scale(new Vector3(0.1f, 0.1f), new Vector3(1, 1), false));
         SetPath(LevelManager.Instance.Path);
@@ -46,7 +65,7 @@ public class Monster : MonoBehaviour
 
         if (remove)
         {
-            Release(gameObject);
+            Release();
         }
     }
 
@@ -112,14 +131,36 @@ public class Monster : MonoBehaviour
         {
             StartCoroutine(Scale(new Vector3(1,1), new Vector3(0.1f, 0.1f), true));
             other.GetComponent<Portal>().Open();
+            GameManager.Instance.Lives--;
+        }
+
+        if (other.tag == "Tile")
+        {
+            mySpriteRenderer.sortingOrder = other.GetComponent<TileScript>().GridPosition.Y;
         }
     }
 
-    private void Release(GameObject gameObject)
+    public void Release()
     {
         IsActive = false;
         GridPosition = LevelManager.Instance.BlueSpawn;
-        GameManager.Instance.Pool.ReleaseObject(gameObject);
         GameManager.Instance.RemoveMonster(this);
+        GameManager.Instance.Pool.ReleaseObject(gameObject);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (IsActive)
+        {
+            health.CurrentValue -= damage;
+
+            if (health.CurrentValue <= 0)
+            {
+                GameManager.Instance.Currency += 2;
+                myAnimator.SetTrigger("Die");
+                IsActive = false;
+                GetComponent<SpriteRenderer>().sortingOrder--;
+            }
+        }
     }
 }
