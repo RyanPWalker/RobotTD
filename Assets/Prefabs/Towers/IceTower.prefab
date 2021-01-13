@@ -102,6 +102,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9014287007317884938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9206487466329806281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab49e5657c124086a3e1408b7f97b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileType: IceProjectile
+  projectileSpeed: 3
+  damage: 5
+  attackCooldown: 3
 --- !u!1001 &2792760676722382141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,8 +195,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Range
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -4657204059744954708, guid: ed55456b7760c4905be132e6c5de742c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ed55456b7760c4905be132e6c5de742c, type: 3}
+--- !u!1 &9206487466329806281 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6414782401705869556, guid: ed55456b7760c4905be132e6c5de742c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2792760676722382141}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2329154730477814396 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 473776171674933057, guid: ed55456b7760c4905be132e6c5de742c,

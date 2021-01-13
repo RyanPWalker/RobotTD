@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public enum Element { FIRE, ICE, POISON, STORM, NONES }
+
+public abstract class Tower : MonoBehaviour
 {
     [SerializeField]
     private string projectileType;
@@ -12,6 +14,8 @@ public class Tower : MonoBehaviour
 
     [SerializeField]
     private int damage;
+
+    public Element ElementType { get; protected set; }
 
     public float ProjectileSpeed
     {

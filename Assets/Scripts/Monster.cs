@@ -9,6 +9,11 @@ public class Monster : MonoBehaviour
 
     private Stack<Node> path;
 
+    [SerializeField]
+    private Element elementType;
+
+    private int invulnerability = 2;
+
     private SpriteRenderer mySpriteRenderer;
 
     private Animator myAnimator;
@@ -148,10 +153,16 @@ public class Monster : MonoBehaviour
         GameManager.Instance.Pool.ReleaseObject(gameObject);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Element dmgSource)
     {
         if (IsActive)
         {
+            if (dmgSource == elementType)
+            {
+                damage = damage / invulnerability;
+                invulnerability++;
+            }
+
             health.CurrentValue -= damage;
 
             if (health.CurrentValue <= 0)
